@@ -15,23 +15,19 @@ class UserRegistForm(forms.ModelForm):
     password = forms.CharField(label='Password', min_length=8, widget=forms.PasswordInput(
         attrs={
             'class': 'input mb-4',
-            'placeholder': 'password'
     }))
     confirm_password = forms.CharField(label='Confirma Password', widget=forms.PasswordInput(
         attrs={
             'class': 'input mb-4',
-            'placeholder': 'confirm_password'
     }))
     username = forms.CharField(label='Username', widget=forms.TextInput(
         attrs={
             'class': 'input mb-4',
-            'placeholder': 'username'
         }
     ))
     email = forms.EmailField(label='e-mail', widget=forms.TextInput(
         attrs={
             'class': 'input mb-4',
-            'placeholder': 'e-mail'
         }
     ))
 
