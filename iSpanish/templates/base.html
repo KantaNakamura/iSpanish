@@ -96,8 +96,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
             </ul>
-            <button class="btn btn-outline-success" style="margin-right: 30px;" type="submit">Login</button>
-            <button class="btn btn-outline-primary" type="submit">Register</button>
+            <a class="btn btn-outline-success" style="margin-right: 30px;" href="{% url 'accounts:regist' %}">Sign Up</a>
+            <a class="btn btn-outline-primary" href="{% url 'accounts:login' %}">Login</a>
         <div>
         {% endif %}
         </div>
