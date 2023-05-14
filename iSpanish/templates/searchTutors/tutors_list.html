@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h2 style="margin-bottom: 40px; ">You can find your favorite tutors.</h2>
+                <!-- Search Form START -->
+                {% csrf_token %}
+                <form class="row g-3" method="get">
+                <div class="col-md-6">
+                    <!-- Where -->
+                    <div class="input-group">
+                    <input class="form-control form-control-lg me-1 pe-5" type="search" placeholder="please enter keyword" name="search">
+                    </div>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <!-- Search -->
+                    <button class="btn btn-lg btn-primary" type="submit">Search</button>
+                </div>
+                </form>
+                <!-- Search Form END -->
+            </div>
+        </div>
+        </section>
+
+
+    
+        <div class="album py-5 bg-light">
+        <div class="container">
+    
+            <div class="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-3">
+                {% if user_searched_something %}
+                    <h2>Results<strong style="color:#FF1474;">{{ number_of_searched_contents }}</strong>tutors</h2>
+                    <!-- start --> 
+                    {% for tutor in tutors %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <a href="">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{ tutor.icon.url }}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text">{{ tutor.name }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ tutor.country }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h2>There is no available tutors.</h2>
+                    {% endfor %}
+                    <!-- end -->
+                {% else %}
+                    <!-- start --> 
+                    {% for tutor in tutors %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <a href="">
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{{ tutor.icon.url }}">
+                            </a>
+                            <div class="card-body">
+                                <p class="card-text">{{ tutor.name }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ tutor.country }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h2>There is no available tutors.</h2>
+                    {% endfor %}
+                    <!-- end -->
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

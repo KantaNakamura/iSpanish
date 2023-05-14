@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from django.contrib import messages
 
 from .forms import UserRegistForm, UserLoginForm
@@ -16,8 +17,8 @@ class UnauthenticatedOnly(UserPassesTestMixin):
         # check user login status
         return not self.request.user.is_authenticated
     
-    # def handle_no_permission(self):
-    #     return redirect('accounts:research_university')
+    def handle_no_permission(self):
+        return redirect('search_tutors:tutors-list')
     
     
 class HomeView(UnauthenticatedOnly, TemplateView):
@@ -38,12 +39,8 @@ class UserLoginView(UnauthenticatedOnly, LoginView):
     login_form = UserLoginForm
     
 
-class UserLogoutView(LogoutView):
+class UserLogoutView(LoginRequiredMixin, LogoutView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             messages.info(request, "Logout succeeded.")
         return super().dispatch(request, *args, **kwargs) 
-    
-
-class TutorListView(LoginRequiredMixin, TemplateView):
-    template_name= 'searchTutors/tutor_list.html'
