@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.profile {
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile img {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile .name {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.profile .description {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.profile iframe {
+  width: 60%;
+  height: 315px;
+  margin: 20px 0;
+}
+
+.profile .country,
+.profile .age,
+.profile .sex {
+  font-size: 14px;
+  margin-bottom: 5px;
+}

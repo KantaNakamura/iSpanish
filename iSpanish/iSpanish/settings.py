@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'search_tutors'
 ]
 
 MIDDLEWARE = [
@@ -139,5 +140,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.Users'
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/tutor-list/'
+LOGIN_REDIRECT_URL = '/tutors-list/'
 LOGOUT_REDIRECT_URL = '/'
