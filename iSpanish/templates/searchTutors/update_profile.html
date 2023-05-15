@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    textarea {
+      height: 120px;
+    }
+
+    input[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 600px) {
+      input[type="text"],
+      textarea {
+        width: 100%;
+      }
+    }
+</style>
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <h1 style="margin-top: 150px;">Update Profile</h1>
+    <form class="row g-3" method="post" enctype="multipart/form-data">
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+        <!-- Picture -->
+        <div class="col-lg-6">
+            <label class="form-label">Icon</label>
+            <div class="avatar me-3">
+                <img style="width:20%;" class="avatar-img rounded-circle" src="{{ user.icon.url }}" alt="プロフィール写真">
+            </div>
+            {{ form.icon }}
+        </div>
+        {{ form.icon.errors }}
+
+        <!-- Name -->
+        <div class="col-lg-6">
+            <label class="form-label">Name</label>
+            {{ form.name }}
+        </div>
+        {{ form.name.errors }}
+
+        <!-- Country -->
+        <div class="col-lg-6">
+            <label class="form-label">Country</label>
+            {{ form.country }}
+        </div>
+        {{ form.country.errors }}
+
+        <!-- Sex -->
+        <div class="col-lg-6">
+            <label class="form-label">Sex</label>
+            {{ form.sex }}
+        </div>
+        {{ form.sex.errors }}
+
+        <!-- Age -->
+        <div class="col-lg-6">
+            <label class="form-label">Age</label>
+            {{ form.age }}
+        </div>
+        {{ form.age.errors }}
+
+        <!-- Tutor -->
+        <div class="col-lg-6">
+            <label class="form-label">Tutor</label>
+            {{ form.is_tutor }}
+        </div>
+        {{ form.is_tutor.errors }}
+
+        <!-- Description -->
+        <div class="col-lg-6">
+            <label class="form-label">Description</label>
+            {{ form.description }}
+        </div>
+        {{ form.description.errors }}
+
+        <!-- Introductory_video_link -->
+        <div class="col-lg-6">
+            <label class="form-label">Introductory video link</label>
+            {{ form.introductory_video_link }}
+        </div>
+        {{ form.introductory_video_link.errors }}
+        <!-- Button  -->
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-sm btn-primary mb-0">Save</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
