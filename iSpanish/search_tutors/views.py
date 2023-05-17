@@ -1,7 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
+from django.shortcuts import get_object_or_404 
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
@@ -27,7 +29,19 @@ class TutorsDetailView(LoginRequiredMixin, DetailView):
         return context
     
     
-class UpdateProfileView(LoginRequiredMixin, UpdateView):
+class CheckForUserMatchMixin(LoginRequiredMixin, UserPassesTestMixin):
+    
+    def test_func(self):
+        updated_user = get_object_or_404(Users, username=self.kwargs['username'])
+        return self.request.user == updated_user
+        
+    def handle_no_permission(self):
+        return JsonResponse(
+            {'message': 'You do not have permission.'}
+        )
+        
+        
+class UpdateProfileView(CheckForUserMatchMixin, UpdateView):
     template_name = 'searchTutors/update_profile.html'
     form_class = UpdateProfileForm
     model = Users
