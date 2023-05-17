@@ -3,10 +3,13 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.contrib.auth import update_session_auth_hash
+from django.core.exceptions import ValidationError
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-from .forms import UserRegistForm, UserLoginForm
+from .forms import UserRegistForm, UserLoginForm, PasswordChangeForm
 
 
 class UnauthenticatedOnly(UserPassesTestMixin):
@@ -44,3 +47,16 @@ class UserLogoutView(LoginRequiredMixin, LogoutView):
         if request.user.is_authenticated:
             messages.info(request, "Logout succeeded.")
         return super().dispatch(request, *args, **kwargs) 
+
+
+@login_required
+def password_change(request):
+    password_change_form = PasswordChangeForm(request.POST or None, instance=request.user)
+    if password_change_form.is_valid():
+        try:
+            password_change_form.save()
+            messages.success(request, 'Password was changed')
+            update_session_auth_hash(request, request.user)
+        except ValidationError as e:
+            password_change_form.add_error('password', e)
+    return render(request, 'accounts/password_change.html', context={'password_change_form': password_change_form})

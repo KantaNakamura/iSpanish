@@ -9,6 +9,10 @@
 <div class="container">
     <div class="profile">
         <h1>Tutor Profile</h1>
+        {% if user.id == object.id %}
+        <a class="nav-link active" aria-current="page" href="{% url 'search_tutors:update-profile' username=object.username %}">Update Profile</a>
+        <a class="nav-link active" aria-current="page" href="{% url 'accounts:password-change' %}">Reset Password</a>
+        {% endif %}
         <img src="{{ object.icon.url }}" alt="人物の写真">
         <h1 class="name">{{ object.name }}</h1>
         <p class="description">山田太郎は日本の作家であり、20世紀初頭の文学界で重要な役割を果たしました。彼の作品は広く評価され、数々の文学賞を受賞しました。山田太郎はまた、文学に関するセミナーや講演でも活動しており、若い作家たちの指導にも力を入れています。</p>

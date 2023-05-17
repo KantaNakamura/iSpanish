@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
 import re
 
 # check username is valid
@@ -68,3 +69,31 @@ class UserLoginForm(AuthenticationForm):
             'placeholder': 'password'
         }
     ))
+    
+
+
+class PasswordChangeForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={
+            'class': 'input mb-4',
+        }))
+    confirm_password = forms.CharField(label='Confirma Password', widget=forms.PasswordInput(attrs={
+            'class': 'input mb-4',
+        }))
+    
+    class Meta:
+        model = get_user_model()
+        fields = ['password',]
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data['password']
+        confirm_password = cleaned_data['confirm_password']
+        if password != confirm_password:
+            raise forms.ValidationError('Passwor is not same.')
+        
+    def save(self, commit=False):
+        user = super().save(commit=False)
+        validate_password(self.cleaned_data['password'], user)
+        user.set_password(self.cleaned_data['password'])
+        user.save()
+        return user

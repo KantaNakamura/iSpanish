@@ -89,7 +89,7 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'search_tutors:tutors-list' %}">Tutors</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'search_tutors:update-profile' username=user.username %}">MyProfile</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'search_tutors:tutors-detail' pk=user.id %}">MyProfile</a>
             </li>
             </ul>
             <a class="btn btn-outline-success" style="margin-right: 30px;" href="{% url 'accounts:logout' %}">Logout</a>
