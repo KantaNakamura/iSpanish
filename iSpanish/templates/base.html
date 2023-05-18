@@ -91,6 +91,9 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'search_tutors:tutors-detail' pk=user.id %}">MyProfile</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'book_tutors:lecture-list' %}">MyLecture</a>
+            </li>
             </ul>
             <a class="btn btn-outline-success" style="margin-right: 30px;" href="{% url 'accounts:logout' %}">Logout</a>
             {% if user.is_superuser %}

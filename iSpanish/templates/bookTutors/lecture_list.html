@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
+                <h2>Lessons Requests</h2>
+                <!-- start --> 
+                {% for lecture in lesson_request_list %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-text">Teaching Lessons</h3>
+                            <p class="card-text">Tutor:  {{ lecture.tutor.name }}</p>
+                            <p class="card-text">Learner:  {{ lecture.user.name }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
+                            </div>
+                            <a class="btn btn-outline-success" style="margin-right: 30px;" href="{% url 'book_tutors:accept-request' pk=lecture.id %}">Accept</a>
+                            <a class="btn btn-outline-danger" href="{% url 'book_tutors:reject-request' pk=lecture.id %}">Reject</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>There is no lesson requests.</p>
+                {% endfor %}
+                <!-- end -->
+                <h2>Teaching Lessons</h2>
+                <!-- start --> 
+                {% for lecture in teach_lecture_list %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            {% if lecture.is_done %}
+                            <h3 class="card-text">Teaching Lessons<span class="badge bg-primary">DONE</span></h3>
+                            {% else %}
+                            <h3 class="card-text">Teaching Lessons</h3>
+                            {% endif %}
+                            <p class="card-text">Tutor:  {{ lecture.tutor.name }}</p>
+                            <p class="card-text">Learner:  {{ lecture.user.name }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>There is no accepted teaching lecture.</p>
+                {% endfor %}
+                <!-- end -->
+                <!-- start --> 
+                <h2>Studying Lessons</h2>
+                {% for lecture in study_lecture_list %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            {% if lecture.is_done %}
+                            <h3 class="card-text">Studying Lessons<span class="badge bg-primary">DONE</span></h3>
+                            {% else %}
+                            <h3 class="card-text">Studying Lessons</h3>
+                            {% endif %}
+                            <a href="{% url 'search_tutors:tutors-detail' pk=lecture.tutor.id %}"><p class="card-text">Tutor:  {{ lecture.tutor.name }}</p></a>
+                            <p class="card-text">Learner:  {{ lecture.user.name }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
+                            </div>
+                            {% if lecture.is_accepted and not lecture.is_done%}
+                            <a class="btn btn-outline-danger" href="{% url 'book_tutors:make-lecture-completed' pk=lecture.id %}">Done</a>
+                            {% elif not lecture.is_accepted %}
+                            <a class="btn btn-outline-danger" >In Progress</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>There is no studying lecture.</p>
+                {% endfor %}
+                <!-- end -->
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

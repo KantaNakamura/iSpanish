@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('', include('search_tutors.urls')),
+    path('', include('book_tutors.urls')),
 ]
 
 if settings.DEBUG:
