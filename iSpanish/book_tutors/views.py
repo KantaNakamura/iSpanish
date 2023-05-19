@@ -92,3 +92,14 @@ def create_tutor_review(request, lecture_pk):
         'tutor': tutor
     })
     
+    
+@login_required
+def delete_review(request, review_pk):
+    lecture = get_object_or_404(ReviewOfTutors, id=review_pk)
+    if request.user != lecture.user:
+        return JsonResponse(
+            {'message': 'You do not have permission.'}
+        )
+    lecture.delete()
+    return redirect('search_tutors:tutors-detail', pk=lecture.tutor.id)
+    

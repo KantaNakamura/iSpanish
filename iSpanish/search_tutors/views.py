@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 
 
 from accounts.models import Users
+from book_tutors.models import ReviewOfTutors
 from .forms import UpdateProfileForm
 
 
@@ -26,6 +27,8 @@ class TutorsDetailView(LoginRequiredMixin, DetailView):
     
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.object
+        context['reviews'] = ReviewOfTutors.objects.filter(tutor=user)
         return context
     
     
