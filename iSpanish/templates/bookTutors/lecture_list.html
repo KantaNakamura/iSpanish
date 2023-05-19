@@ -67,6 +67,8 @@
                             </div>
                             {% if lecture.is_accepted and not lecture.is_done%}
                             <a class="btn btn-outline-danger" href="{% url 'book_tutors:make-lecture-completed' pk=lecture.id %}">Done</a>
+                            {% elif lecture.is_done %}
+                            <a class="btn btn-outline-success" href="{% url 'book_tutors:create-tutor-review' lecture_pk=lecture.id %}">Review</a>
                             {% elif not lecture.is_accepted %}
                             <a class="btn btn-outline-danger" >In Progress</a>
                             {% endif %}

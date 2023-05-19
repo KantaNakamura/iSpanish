@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404 
 from django.http import JsonResponse
 
-from .forms import BookTutorsForm
-from .models import BookTutors
+from .forms import BookTutorsForm, CreateTutorReviewForm
+from .models import BookTutors, ReviewOfTutors
 from accounts.models import Users
 
 
@@ -35,19 +35,30 @@ def lecture_list(request):
     })
     
 
+@login_required
 def accept_lecture_request(request, pk):
     lecture = get_object_or_404(BookTutors, id=pk)
+    if request.user != lecture.tutor:
+        return JsonResponse(
+        {'message': 'You do not have permission.'}
+    )
     lecture.is_accepted = True
     lecture.save()
     return redirect('book_tutors:lecture-list')
 
 
+@login_required
 def reject_lecture_request(request, pk):
     lecture = get_object_or_404(BookTutors, id=pk)
+    if request.user != lecture.tutor:
+        return JsonResponse(
+        {'message': 'You do not have permission.'}
+    )
     lecture.delete()
     return redirect('book_tutors:lecture-list')
 
 
+@login_required
 def make_lecture_completed(request, pk):
     lecture = get_object_or_404(BookTutors, id=pk)
     if request.user != lecture.user:
@@ -57,3 +68,27 @@ def make_lecture_completed(request, pk):
     lecture.is_done = True
     lecture.save()
     return redirect('book_tutors:lecture-list')
+
+
+@login_required
+def create_tutor_review(request, lecture_pk):
+    create_tutor_review_form = CreateTutorReviewForm(request.POST or None, files=request.FILES)
+    lecture = get_object_or_404(BookTutors, id=lecture_pk)
+    tutor = get_object_or_404(Users, username=lecture.tutor.username)
+    if request.user != lecture.user:
+        return JsonResponse(
+            {'message': 'You do not have permission.'}
+        )
+    if ReviewOfTutors.objects.filter(lecture=lecture).exists():
+        return redirect('book_tutors:lecture-list')
+    if create_tutor_review_form.is_valid():
+        create_tutor_review_form.instance.user = request.user
+        create_tutor_review_form.instance.tutor = tutor
+        create_tutor_review_form.instance.lecture = lecture
+        create_tutor_review_form.save()
+        return redirect('search_tutors:tutors-detail', pk=tutor.id)
+    return render(request, 'bookTutors/create_tutor_review.html', context={
+        'create_tutor_review_form': create_tutor_review_form,
+        'tutor': tutor
+    })
+    

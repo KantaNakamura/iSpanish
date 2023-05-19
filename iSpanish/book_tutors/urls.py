@@ -9,4 +9,5 @@ urlpatterns = [
     path('accept-request/<int:pk>', views.accept_lecture_request, name='accept-request'),
     path('reject-request/<int:pk>', views.reject_lecture_request, name='reject-request'),
     path('make-lecture-completed/<int:pk>', views.make_lecture_completed, name='make-lecture-completed'),
+    path('create-tutor-review/<int:lecture_pk>', views.create_tutor_review, name='create-tutor-review'),
 ]

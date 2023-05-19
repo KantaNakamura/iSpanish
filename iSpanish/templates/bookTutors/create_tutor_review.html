@@ -4,12 +4,12 @@
 <div class="container">
     <div class="columns is-centered">
         <div class="column is-half has-background-link-light">
-            <h1 class="is-size-1">BookTutor</h1>
+            <h1 class="is-size-1">Create Review</h1>
             <hr>
-            <a href="{% url 'search_tutors:tutors-detail' pk=tutor.id %}"><h3>{{ tutor.name }}</h3></a>
+            <a href="{% url 'search_tutors:tutors-detail' pk=tutor.id %}"><h3>Tutor: {{ tutor.name }}</h3></a>
             <form method="POST">
                 {% csrf_token %}
-                {{ book_tutors_form.as_p }}
+                {{ create_tutor_review_form.as_p }}
                 <button class="button is-primary">Submit</button>
             </form>
         </div>
