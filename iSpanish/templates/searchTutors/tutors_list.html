@@ -32,9 +32,9 @@
     
             <div class="row row-cols-1 row-cols-sm-3 row-cols-md-5 g-3">
                 {% if user_searched_something %}
-                    <h2>Results<strong style="color:#FF1474;">{{ number_of_searched_contents }}</strong>tutors</h2>
+                    <h2>Found <strong style="color:#FF1474;">{{ number_of_searched_tutors }}</strong> tutors</h2>
                     <!-- start --> 
-                    {% for tutor in tutors %}
+                    {% for tutor in searched_tutors %}
                     <div class="col">
                         <div class="card shadow-sm">
                             <a href="{% url 'search_tutors:tutors-detail' pk=tutor.id %}">
@@ -48,8 +48,6 @@
                             </div>
                         </div>
                     </div>
-                    {% empty %}
-                    <h2>There is no available tutors.</h2>
                     {% endfor %}
                     <!-- end -->
                 {% else %}

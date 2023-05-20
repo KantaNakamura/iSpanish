@@ -16,8 +16,29 @@ from .forms import UpdateProfileForm
 class TutorsListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         tutors = Users.objects.filter(is_tutor=True).all()
+        if 'search' in self.request.GET:
+            keyword_query = request.GET.get('search')
+            if keyword_query == '':
+                searched_tutors = []
+                number_of_searched_tutors = 0
+                user_searched_something = False
+            else:
+                tutors = list(Users.objects.filter(is_tutor=True).all())
+                searched_tutors = []
+                for tutor in tutors:
+                    if keyword_query.lower() in tutor.name.lower() or keyword_query.lower() in tutor.description.lower():
+                        searched_tutors.append(tutor)
+                number_of_searched_tutors = len(searched_tutors)
+                user_searched_something = True
+        else:
+            searched_tutors = []
+            number_of_searched_tutors = 0
+            user_searched_something = False
         return render(request, 'searchTutors/tutors_list.html', {
             'tutors': tutors,
+            'searched_tutors': searched_tutors,
+            'number_of_searched_tutors': number_of_searched_tutors,
+            'user_searched_something': user_searched_something,
             })
         
         
