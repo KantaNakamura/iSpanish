@@ -11,7 +11,7 @@ from accounts.models import Users
 @login_required
 def book_tutors(request, tutor_username):
     book_tutors_form = BookTutorsForm(request.POST or None, files=request.FILES)
-    tutor = get_object_or_404(Users, username=tutor_username)
+    tutor = get_object_or_404(Users, username=tutor_username, is_tutor=True)
     if book_tutors_form.is_valid():
         book_tutors_form.instance.user = request.user
         book_tutors_form.instance.tutor = tutor
