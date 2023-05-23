@@ -12,7 +12,7 @@
         <h1>My Profile</h1>
         <a class="btn btn-outline-success" href="{% url 'search_tutors:update-profile' username=object.username %}">Update Profile</a>
         <p><a class="btn btn-outline-danger" style="margin-top: 10px; " href="{% url 'accounts:password-change' %}">Reset Password</a></p>
-        {% else %}
+        {% elif object.is_tutor %}
         <h1>Tutor Profile</h1>
         <p><a class="btn btn-outline-primary"  href="{% url 'book_tutors:book-tutors' tutor_username=object.username %}">Book Tutors</a></p>
         {% endif %}
@@ -39,7 +39,7 @@
                         </div>
                         <p class="card-text">{{ review.review }}</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">Date: {{ review.lecture.date }} / Hour: {{ review.lecture.hour }} / Price: {{ review.lecture.price }} dollar</small>
+                            <small class="text-muted">Date: {{ review.lecture.start_date }}.{{ review.lecture.start_time}}~{{ review.lecture.end_date }}.{{ review.lecture.end_time}} / Price: {{ review.lecture.price }} dollar</small>
                         </div>
                         {% if review.user == user %}
                         <a class="btn btn-outline-danger" href="{% url 'book_tutors:delete-review' review_pk=review.id %}">Delete</a>
