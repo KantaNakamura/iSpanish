@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block header %}
+<link href="{% static 'css/lecture_list.css' %}" rel="stylesheet">
+{% endblock header%}
 
 {% block content %}
 <main>
@@ -12,8 +16,18 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h3 class="card-text">Teaching Lessons</h3>
-                            <p class="card-text">Tutor:  {{ lecture.tutor.name }}</p>
-                            <p class="card-text">Learner:  {{ lecture.user.name }}</p>
+                            <div class="profile">
+                                <a href="{% url 'search_tutors:tutors-detail' pk=lecture.tutor.id %}">
+                                <img src="{{ lecture.tutor.icon.url }}" alt="プロフィール写真">
+                                </a>
+                                <p class="card-text" style="margin: 0;">Tutor: {{ lecture.tutor.name }}</p>
+                            </div>
+                            <div class="profile">
+                                <a href="{% url 'search_tutors:tutors-detail' pk=lecture.user.id %}">
+                                <img src="{{ lecture.user.icon.url }}" alt="プロフィール写真">
+                                </a>
+                                <p class="card-text" style="margin: 0;">Learner: {{ lecture.user.name }}</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
                             </div>
@@ -37,8 +51,18 @@
                             {% else %}
                             <h3 class="card-text">Teaching Lessons</h3>
                             {% endif %}
-                            <p class="card-text">Tutor:  {{ lecture.tutor.name }}</p>
-                            <p class="card-text">Learner:  {{ lecture.user.name }}</p>
+                            <div class="profile">
+                                <a href="{% url 'search_tutors:tutors-detail' pk=lecture.tutor.id %}">
+                                <img src="{{ lecture.tutor.icon.url }}" alt="プロフィール写真">
+                                </a>
+                                <p class="card-text" style="margin: 0;">Tutor: {{ lecture.tutor.name }}</p>
+                            </div>
+                            <div class="profile">
+                                <a href="{% url 'search_tutors:tutors-detail' pk=lecture.user.id %}">
+                                <img src="{{ lecture.user.icon.url }}" alt="プロフィール写真">
+                                </a>
+                                <p class="card-text" style="margin: 0;">Learner: {{ lecture.user.name }}</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
                             </div>
@@ -60,8 +84,18 @@
                             {% else %}
                             <h3 class="card-text">Studying Lessons</h3>
                             {% endif %}
-                            <a href="{% url 'search_tutors:tutors-detail' pk=lecture.tutor.id %}"><p class="card-text">Tutor:  {{ lecture.tutor.name }}</p></a>
-                            <p class="card-text">Learner:  {{ lecture.user.name }}</p>
+                            <div class="profile">
+                                <a href="{% url 'search_tutors:tutors-detail' pk=lecture.tutor.id %}">
+                                <img src="{{ lecture.tutor.icon.url }}" alt="プロフィール写真">
+                                </a>
+                                <p class="card-text" style="margin: 0;">Tutor: {{ lecture.tutor.name }}</p>
+                            </div>
+                            <div class="profile">
+                                <a href="{% url 'search_tutors:tutors-detail' pk=lecture.user.id %}">
+                                <img src="{{ lecture.user.icon.url }}" alt="プロフィール写真">
+                                </a>
+                                <p class="card-text" style="margin: 0;">Learner: {{ lecture.user.name }}</p>
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
                             </div>

@@ -30,7 +30,13 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <strong><p class="card-text"><span class="badge bg-primary">{{ review.evaluation }}</span> Student: <a href="{% url 'search_tutors:tutors-detail' pk=review.user.id %}">{{ review.user.name }}</a></p></strong>
+                        <span class="badge bg-primary">{{ review.evaluation }}</span> 
+                        <div class="profile2">
+                            <a href="{% url 'search_tutors:tutors-detail' pk=review.user.id %}">
+                            <img src="{{ review.user.icon.url }}" alt="プロフィール写真">
+                            </a>
+                            <p class="card-text" style="margin: 0;">Tutor: {{ review.user.name }}</p>
+                        </div>
                         <p class="card-text">{{ review.review }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-muted">Date: {{ review.lecture.date }} / Hour: {{ review.lecture.hour }} / Price: {{ review.lecture.price }} dollar</small>
