@@ -29,7 +29,7 @@
                                 <p class="card-text" style="margin: 0;">Learner: {{ lecture.user.name }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
+                                <small class="text-muted">Date: {{ lecture.start_date }}.{{ lecture.start_time }}~{{ lecture.end_date }}.{{ lecture.end_time }} / Price: {{ lecture.price }} dollar</small>
                             </div>
                             <a class="btn btn-outline-success" style="margin-right: 30px;" href="{% url 'book_tutors:accept-request' pk=lecture.id %}">Accept</a>
                             <a class="btn btn-outline-danger" href="{% url 'book_tutors:reject-request' pk=lecture.id %}">Reject</a>
@@ -64,7 +64,7 @@
                                 <p class="card-text" style="margin: 0;">Learner: {{ lecture.user.name }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
+                                <small class="text-muted">Date: {{ lecture.start_date }}.{{ lecture.start_time }}~{{ lecture.end_date }}.{{ lecture.end_time }} / Price: {{ lecture.price }} dollar</small>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                                 <p class="card-text" style="margin: 0;">Learner: {{ lecture.user.name }}</p>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">Date: {{ lecture.date }} / Hour: {{ lecture.hour }} / Price: {{ lecture.price }} dollar</small>
+                                <small class="text-muted">Date: {{ lecture.start_date }}.{{ lecture.start_time }}~{{ lecture.end_date }}.{{ lecture.end_time }} / Price: {{ lecture.price }} dollar</small>
                             </div>
                             {% if lecture.is_accepted and not lecture.is_done%}
                             <a class="btn btn-outline-danger" href="{% url 'book_tutors:make-lecture-completed' pk=lecture.id %}">Done</a>

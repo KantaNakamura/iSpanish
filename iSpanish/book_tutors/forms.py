@@ -7,16 +7,22 @@ class BookTutorsForm(forms.ModelForm):
     price = forms.CharField(label='Price(dollar)', widget=forms.TextInput(attrs={
         'class': 'form-control', 
         }))
-    date = forms.DateField(label='Date', widget=forms.SelectDateWidget(attrs={
+    start_date = forms.DateField(label='Start Date', widget=forms.SelectDateWidget(attrs={
         'class': 'form-control', 
         }))
-    hour = forms.IntegerField(label='Hour', widget=forms.NumberInput(attrs={
+    start_time = forms.TimeField(label='Start Time', widget=forms.TimeInput(attrs={
+        'class': 'form-control', 
+        }))
+    end_date = forms.DateField(label='End Date', widget=forms.SelectDateWidget(attrs={
+        'class': 'form-control', 
+        }))
+    end_time = forms.TimeField(label='End Time', widget=forms.TimeInput(attrs={
         'class': 'form-control', 
         }))
     
     class Meta:
         model = BookTutors
-        fields = ['price', 'date', 'hour']
+        fields = ['price', 'start_date','start_time', 'end_date', 'end_time']
         
         
 class CreateTutorReviewForm(forms.ModelForm):

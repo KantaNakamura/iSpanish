@@ -25,9 +25,9 @@ def book_tutors(request, tutor_username):
 
 @login_required
 def lecture_list(request):
-    study_lecture_list = BookTutors.objects.filter(user=request.user).order_by('date')
-    teach_lecture_list = BookTutors.objects.filter(tutor=request.user, is_accepted=True).order_by('date')
-    lesson_request_list = BookTutors.objects.filter(tutor=request.user, is_accepted=False).order_by('date')
+    study_lecture_list = BookTutors.objects.filter(user=request.user).order_by('start_date')
+    teach_lecture_list = BookTutors.objects.filter(tutor=request.user, is_accepted=True).order_by('start_date')
+    lesson_request_list = BookTutors.objects.filter(tutor=request.user, is_accepted=False).order_by('start_date')
     return render(request, 'bookTutors/lecture_list.html', context={
         'study_lecture_list': study_lecture_list,
         'teach_lecture_list': teach_lecture_list,
