@@ -35,7 +35,7 @@
                             <a href="{% url 'search_tutors:tutors-detail' pk=review.user.id %}">
                             <img src="{{ review.user.icon.url }}" alt="プロフィール写真">
                             </a>
-                            <p class="card-text" style="margin: 0;">Tutor: {{ review.user.name }}</p>
+                            <p class="card-text" style="margin: 0;">Student: {{ review.user.name }}</p>
                         </div>
                         <p class="card-text">{{ review.review }}</p>
                         <div class="d-flex justify-content-between align-items-center">
