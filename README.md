@@ -1,4 +1,5 @@
 # iSpanish
+This is a project I used in a college class.
 
 ## How to set up
 Please install docker in ur laptop
